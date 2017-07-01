@@ -2,6 +2,7 @@ package contoroller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * メインのサーブレット
- * 担当 ： 太田
+ * @author Akane Ota
  */
 
 
@@ -25,16 +26,40 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		RequestDispatcher disp = request.getRequestDispatcher("WEB-INF/view/main.jsp");
+		disp.forward(request, response);
+		return;
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String page = request.getParameter("page");
+
+		switch (page) {
+		case "main":{
+			RequestDispatcher disp = request.getRequestDispatcher("WEB-INF/view/main.jsp");
+			disp.forward(request, response);
+			return;
+		}
+		case "contents":{
+			RequestDispatcher disp = request.getRequestDispatcher("WEB-INF/view/contents.jsp");
+			disp.forward(request, response);
+			return;
+		}
+		case "search":{
+			RequestDispatcher disp = request.getRequestDispatcher("WEB-INF/view/search.jsp");
+			disp.forward(request, response);
+			return;
+		}
+		default:{
+			RequestDispatcher disp = request.getRequestDispatcher("WEB-INF/view/main.jsp");
+			disp.forward(request, response);
+		}	break;
+		}
 	}
 
 }
